@@ -5,7 +5,7 @@ A .LP-file model</code></pre><p><strong>The MathOptFormat file format</strong></
 A MathOptFormat Model</code></pre><p><strong>The MPS file format</strong></p><pre><code class="language-julia-repl">julia&gt; model = MOI.FileFormats.Model(format = MOI.FileFormats.FORMAT_MPS)
 A Mathematical Programming System (MPS) model</code></pre><p><strong>The SDPA file format</strong></p><pre><code class="language-julia-repl">julia&gt; model = MOI.FileFormats.Model(format = MOI.FileFormats.FORMAT_SDPA)
 A SemiDefinite Programming Algorithm Format (SDPA) model</code></pre><h2 id="Write-to-file"><a class="docs-heading-anchor" href="#Write-to-file">Write to file</a><a id="Write-to-file-1"></a><a class="docs-heading-anchor-permalink" href="#Write-to-file" title="Permalink"></a></h2><p>To write a model <code>src</code> to a <a href="https://jump.dev/MathOptFormat/">MathOptFormat file</a>, use:</p><pre><code class="language-julia-repl">julia&gt; src = MOI.Utilities.Model{Float64}()
-MOIU.Model{Float64}
+MOIU.GenericModel{Float64,MOIU.ModelFunctionConstraints{Float64}}
 
 julia&gt; MOI.add_variable(src)
 MathOptInterface.VariableIndex(1)
@@ -45,7 +45,7 @@ julia&gt; MOI.get(dest, MOI.ListOfVariableIndices())
  MathOptInterface.VariableIndex(1)
 
 julia&gt; rm(&quot;file.mof.json&quot;)  # Clean up after ourselves.</code></pre><h2 id="Detecing-the-filetype-automatically"><a class="docs-heading-anchor" href="#Detecing-the-filetype-automatically">Detecing the filetype automatically</a><a id="Detecing-the-filetype-automatically-1"></a><a class="docs-heading-anchor-permalink" href="#Detecing-the-filetype-automatically" title="Permalink"></a></h2><p>Instead of the <code>format</code> keyword, you can also use the <code>filename</code> keyword argument to <a href="../reference/#MathOptInterface.FileFormats.Model"><code>FileFormats.Model</code></a>. This will attempt to automatically guess the format from the file extension. For example:</p><pre><code class="language-julia-repl">julia&gt; src = MOI.Utilities.Model{Float64}()
-MOIU.Model{Float64}
+MOIU.GenericModel{Float64,MOIU.ModelFunctionConstraints{Float64}}
 
 julia&gt; dest = MOI.FileFormats.Model(filename = &quot;file.cbf.gz&quot;)
 A Conic Benchmark Format (CBF) model
@@ -59,7 +59,7 @@ julia&gt; src_2 = MOI.FileFormats.Model(filename = &quot;file.cbf.gz&quot;)
 A Conic Benchmark Format (CBF) model
 
 julia&gt; src = MOI.Utilities.Model{Float64}()
-MOIU.Model{Float64}
+MOIU.GenericModel{Float64,MOIU.ModelFunctionConstraints{Float64}}
 
 julia&gt; dest = MOI.FileFormats.Model(filename = &quot;file.cbf.gz&quot;)
 A Conic Benchmark Format (CBF) model
@@ -81,7 +81,7 @@ dest = MOI.FileFormats.Model(format = MOI.FileFormats.FORMAT_CBF)
 bridged = MOI.Bridges.full_bridge_optimizer(dest, Float64)
 MOI.copy_to(bridged, src)
 MOI.write_to_file(dest, &quot;my_model.cbf&quot;)</code></pre><p>You should also note that even after bridging, it may still not be possible to write the model to file because of unsupported constraints (e.g., PSD variables in the LP file format).</p><h2 id="Read-and-write-to-io"><a class="docs-heading-anchor" href="#Read-and-write-to-io">Read and write to <code>io</code></a><a id="Read-and-write-to-io-1"></a><a class="docs-heading-anchor-permalink" href="#Read-and-write-to-io" title="Permalink"></a></h2><p>In addition to <a href="../../../reference/models/#MathOptInterface.write_to_file"><code>write_to_file</code></a> and <a href="../../../reference/models/#MathOptInterface.read_from_file"><code>read_from_file</code></a>, you can read and write directly from <code>IO</code> streams using <code>Base.write</code> and <code>Base.read!</code>:</p><pre><code class="language-julia-repl">julia&gt; src = MOI.Utilities.Model{Float64}()
-MOIU.Model{Float64}
+MOIU.GenericModel{Float64,MOIU.ModelFunctionConstraints{Float64}}
 
 julia&gt; dest = MOI.FileFormats.Model(format = MOI.FileFormats.FORMAT_MPS)
 A Mathematical Programming System (MPS) model
@@ -100,4 +100,4 @@ IOBuffer(data=UInt8[...], readable=true, writable=true, seekable=true, append=fa
 julia&gt; src_2 = MOI.FileFormats.Model(format = MOI.FileFormats.FORMAT_MPS)
 A Mathematical Programming System (MPS) model
 
-julia&gt; read!(io, src_2)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../Bridges/reference/">« API Reference</a><a class="docs-footer-nextpage" href="../reference/">API Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 14 March 2021 23:16">Sunday 14 March 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+julia&gt; read!(io, src_2)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../Bridges/reference/">« API Reference</a><a class="docs-footer-nextpage" href="../reference/">API Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 17 March 2021 08:29">Wednesday 17 March 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
