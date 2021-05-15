@@ -1,6 +1,3 @@
-# Constants: stored in a `Vector` or `Box` or any other type implementing:
-# `empty!`, `resize!` and `load_constants`.
-
 """
     load_constants(constants, offset, func_or_set)
 
@@ -42,8 +39,11 @@ struct Box{T}
     lower::Vector{T}
     upper::Vector{T}
 end
+
 Box{T}() where {T} = Box{T}(T[], T[])
+
 Base.:(==)(a::Box, b::Box) = a.lower == b.lower && a.upper == b.upper
+
 function Base.empty!(b::Box)
     empty!(b.lower)
     empty!(b.upper)
@@ -132,6 +132,7 @@ mutable struct MatrixOfConstraints{T,AT,BT,ST} <: MOI.ModelLike
 end
 
 MOI.is_empty(v::MatrixOfConstraints) = MOI.is_empty(v.sets)
+
 function MOI.empty!(v::MatrixOfConstraints{T}) where {T}
     MOI.empty!(v.coefficients)
     empty!(v.constants)
@@ -190,9 +191,11 @@ function MOI.get(
 end
 
 _add_set(sets, i, func::MOI.AbstractScalarFunction) = add_set(sets, i)
+
 function _add_set(sets, i, func::MOI.AbstractVectorFunction)
     return add_set(sets, i, MOI.output_dimension(func))
 end
+
 function _add_constraint(model::MatrixOfConstraints, i, index_map, func, set)
     allocate_terms(model.coefficients, index_map, func)
     # Without this type annotation, the compiler is unable to know the type
@@ -204,6 +207,7 @@ function _add_constraint(model::MatrixOfConstraints, i, index_map, func, set)
 end
 
 struct IdentityMap <: AbstractDict{MOI.VariableIndex,MOI.VariableIndex} end
+
 Base.getindex(::IdentityMap, vi::MOI.VariableIndex) = vi
 
 function MOI.add_constraint(
@@ -253,15 +257,18 @@ function _load_constants(
     set::MOI.AbstractScalarSet,
 )
     MOI.throw_if_scalar_and_constant_not_zero(func, typeof(set))
-    return load_constants(constants, offset, set)
+    load_constants(constants, offset, set)
+    return
 end
+
 function _load_constants(
     constants,
     offset,
     func::MOI.AbstractVectorFunction,
-    set::MOI.AbstractVectorSet,
+    ::MOI.AbstractVectorSet,
 )
-    return load_constants(constants, offset, func)
+    load_constants(constants, offset, func)
+    return
 end
 
 function _load_constraints(
@@ -303,12 +310,10 @@ function final_touch(model::MatrixOfConstraints, index_map)
     num_rows = MOI.dimension(model.sets)
     resize!(model.constants, num_rows)
     set_number_of_rows(model.coefficients, num_rows)
-
     offset = 0
     for cache in model.caches
         offset = _load_constraints(model, index_map, offset, cache)
     end
-
     final_touch(model.coefficients)
     empty!(model.are_indices_mapped)
     empty!(model.caches)
