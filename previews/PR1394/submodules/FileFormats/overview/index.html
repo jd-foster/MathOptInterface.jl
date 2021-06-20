@@ -90,18 +90,16 @@ A Mathematical Programming System (MPS) model
 julia&gt; MOI.copy_to(dest, src)
 MathOptInterface.Utilities.IndexMap with 0 entries
 
-julia&gt; io = IOBuffer()
-IOBuffer(data=UInt8[...], readable=true, writable=true, seekable=true, append=false, size=0, maxsize=Inf, ptr=1, mark=-1)
+julia&gt; io = IOBuffer();
 
 julia&gt; write(io, dest)
 
-julia&gt; seekstart(io)
-IOBuffer(data=UInt8[...], readable=true, writable=true, seekable=true, append=false, size=61, maxsize=Inf, ptr=1, mark=-1)
+julia&gt; seekstart(io);
 
 julia&gt; src_2 = MOI.FileFormats.Model(format = MOI.FileFormats.FORMAT_MPS)
 A Mathematical Programming System (MPS) model
 
-julia&gt; read!(io, src_2)</code></pre><h2 id="Validating-MOF-files"><a class="docs-heading-anchor" href="#Validating-MOF-files">Validating MOF files</a><a id="Validating-MOF-files-1"></a><a class="docs-heading-anchor-permalink" href="#Validating-MOF-files" title="Permalink"></a></h2><p>MathOptFormat files are governed by a schema. Use <a href="https://github.com/fredo-dedup/JSONSchema.jl">JSONSchema.jl</a> to check if a <code>.mof.json</code> file satisfies the schema.</p><p>First, construct the schema object as follows:</p><pre><code class="language-julia-repl">julia&gt; import JSON, JSONSchema
+julia&gt; read!(io, src_2);</code></pre><h2 id="Validating-MOF-files"><a class="docs-heading-anchor" href="#Validating-MOF-files">Validating MOF files</a><a id="Validating-MOF-files-1"></a><a class="docs-heading-anchor-permalink" href="#Validating-MOF-files" title="Permalink"></a></h2><p>MathOptFormat files are governed by a schema. Use <a href="https://github.com/fredo-dedup/JSONSchema.jl">JSONSchema.jl</a> to check if a <code>.mof.json</code> file satisfies the schema.</p><p>First, construct the schema object as follows:</p><pre><code class="language-julia-repl">julia&gt; import JSON, JSONSchema
 
 julia&gt; schema = JSONSchema.Schema(JSON.parsefile(MOI.FileFormats.MOF.SCHEMA_PATH))
 A JSONSchema</code></pre><p>Then, check if a model file is valid using <code>isvalid</code>:</p><pre><code class="language-julia-repl">julia&gt; good_model = JSON.parse(&quot;&quot;&quot;
@@ -135,4 +133,4 @@ Validation failed:
 path:         [variables][1]
 instance:     Dict{String,Any}(&quot;NaMe&quot;=&gt;&quot;x&quot;)
 schema key:   required
-schema value: Any[&quot;name&quot;]</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../Bridges/reference/">« API Reference</a><a class="docs-footer-nextpage" href="../reference/">API Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 18 June 2021 03:39">Friday 18 June 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+schema value: Any[&quot;name&quot;]</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../Bridges/reference/">« API Reference</a><a class="docs-footer-nextpage" href="../reference/">API Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 20 June 2021 21:15">Sunday 20 June 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
