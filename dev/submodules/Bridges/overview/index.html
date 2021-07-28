@@ -22,11 +22,11 @@ julia&gt; MOI.add_constraint(optimizer, MOI.SingleVariable(x), MOI.Interval(0.0,
 MathOptInterface.ConstraintIndex{MathOptInterface.SingleVariable,MathOptInterface.Interval{Float64}}(1)
 
 julia&gt; MOI.get(optimizer, MOI.ListOfConstraintTypesPresent())
-1-element Array{Tuple{DataType,DataType},1}:
+1-element Array{Tuple{Type,Type},1}:
  (MathOptInterface.SingleVariable, MathOptInterface.Interval{Float64})
 
 julia&gt; MOI.get(inner_optimizer, MOI.ListOfConstraintTypesPresent())
-2-element Array{Tuple{DataType,DataType},1}:
+2-element Array{Tuple{Type,Type},1}:
  (MathOptInterface.SingleVariable, MathOptInterface.GreaterThan{Float64})
  (MathOptInterface.SingleVariable, MathOptInterface.LessThan{Float64})</code></pre><h2 id="Bridges.LazyBridgeOptimizer"><a class="docs-heading-anchor" href="#Bridges.LazyBridgeOptimizer">Bridges.LazyBridgeOptimizer</a><a id="Bridges.LazyBridgeOptimizer-1"></a><a class="docs-heading-anchor-permalink" href="#Bridges.LazyBridgeOptimizer" title="Permalink"></a></h2><p>If you don&#39;t want to use <a href="../reference/#MathOptInterface.Bridges.full_bridge_optimizer"><code>Bridges.full_bridge_optimizer</code></a>, but you need more than a single bridge (or you want the bridging to happen lazily), you can manually construct a <a href="../reference/#MathOptInterface.Bridges.LazyBridgeOptimizer"><code>Bridges.LazyBridgeOptimizer</code></a>.</p><p>First, wrap an inner optimizer:</p><pre><code class="language-julia-repl">julia&gt; inner_optimizer = MOI.Utilities.Model{Float64}()
 MOIU.GenericModel{Float64,MOIU.ModelFunctionConstraints{Float64}}
@@ -45,9 +45,9 @@ julia&gt; MOI.add_constraint(optimizer, MOI.SingleVariable(x), MOI.Interval(0.0,
 MathOptInterface.ConstraintIndex{MathOptInterface.SingleVariable,MathOptInterface.Interval{Float64}}(1)
 
 julia&gt; MOI.get(optimizer, MOI.ListOfConstraintTypesPresent())
-1-element Array{Tuple{DataType,DataType},1}:
+1-element Array{Tuple{Type,Type},1}:
  (MathOptInterface.SingleVariable, MathOptInterface.Interval{Float64})
 
 julia&gt; MOI.get(inner_optimizer, MOI.ListOfConstraintTypesPresent())
-1-element Array{Tuple{DataType,DataType},1}:
- (MathOptInterface.SingleVariable, MathOptInterface.Interval{Float64})</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../Benchmarks/reference/">« API Reference</a><a class="docs-footer-nextpage" href="../implementation/">Implementation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Tuesday 27 July 2021 20:16">Tuesday 27 July 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+1-element Array{Tuple{Type,Type},1}:
+ (MathOptInterface.SingleVariable, MathOptInterface.Interval{Float64})</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../Benchmarks/reference/">« API Reference</a><a class="docs-footer-nextpage" href="../implementation/">Implementation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 28 July 2021 10:19">Wednesday 28 July 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
